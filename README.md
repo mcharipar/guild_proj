@@ -1,5 +1,7 @@
 # guild_proj
 
+## [Quick Overview](Mark_Charipar_Guild_Project-merged.pdf) 
+
 ## Instructions
 - [Follow to PDF.](Analytics_Engineer_Candidate_Project.pdf)
 
@@ -11,6 +13,5 @@
 - [Follow to Notbook.](Guild_Project.ipynb)
 - ER Diagram:
 ![](Guild_Education_SQL_ER_Diagram.png)
-\
 - [SQL_QUERIES.txt](SQL_QUERIES.txt)
 - [notes.txt](notes.txt)
