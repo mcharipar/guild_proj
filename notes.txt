@@ -1,0 +1,97 @@
+*****************************************************************************************************
+*	https://app.gleek.io/diagrams/cFdr3Sx9K712pnUQgTEGsg                                        *
+*****************************************************************************************************
+// Entity-Relationship Diagram
+// ** Check Right-Click Menu for more features **
+
+// Simple entities
+// Use the tab button for attributes
+// Each attribute has two values separated by space
+Course_Details
+	varchar(18) Sf_Course_C_ID
+	varchar(75) Sf_Course_C_Name
+	datetime Sf_Course_C_Course_Start_Date_C_Date
+	datetime Sf_Course_C_Course_End_Date_C_Date
+	varchar(3) Sf_Course_C_Final_Grade_C
+
+
+Contact_Details
+	varchar(18) Sf_Contact_ID
+	varchar(18) Sf_Opportunity_ID
+	varchar(18) Sf_Course_C_ID
+
+Opportunity_Details
+	varchar(18) Sf_Opportunity_ID
+	varchar(30) Sf_Opportunity_Application_Type_C
+	varchar(30) Sf_Opportunity_Program_Category
+	varchar(50) Sf_Opportunity_Program_C
+
+
+
+// Connect shapes together using different connection types
+Course_Details {1}--{0..n} Contact_Details
+Opportunity_Details {1}--{0..n} Contact_Details
+
+
+*****************************************************************************************************
+*	Course_Details                                                                              *
+*****************************************************************************************************
+-Sf Course C ID: Primary Key, case sensitive (both capital and lowercase)[no special chars](18)
+	7572 rows
+-Sf Course C Name: case sensitive (both capital and lowercase)[special chars](>=30)
+	7572 rows
+-Sf Course C Course Start Date C Date: MM/DD/YYYY
+	7563 rows (9 Null)
+-Sf Course C Course End Date C Date: MM/DD/YYYY
+	7539 rows (33 Null)
+-Sf Course C Final Grade C:
+	2736 rows (4836 Null)
+
+*****************************************************************************************************
+*	Contact_Details    (Join Table)                                                             *
+*****************************************************************************************************
+-Sf Contact ID: case sensitive (both capital and lowercase)[no special chars](18)
+	27029 rows
+-Sf Opportunity ID: Foreign key, case sensitive (both capital and lowercase)[no special chars](18)
+	11878 rows (15151 Null)
+-Sf Course C ID: Foreign key, case sensitive (both capital and lowercase)[no special chars](18)
+	7572 rows (19457 Null)
+
+*****************************************************************************************************
+*	Opportunity_Details                                                                         *
+*****************************************************************************************************
+-Sf Opportunity ID: Primary key, case sensitive (both capital and lowercase)[no special chars](18)
+	6968 rows
+-Sf Opportunity Application Type C: case sensitive (both capital and lowercase)[special chars](>=30)
+	6965 rows (3 Null)
+-Sf Opportunity Program Category: case sensitive (both capital and lowercase)[special chars](>=30)
+	6968 rows
+-Sf Opportunity Program C: case sensitive (both capital and lowercase)[special chars](>=76)
+	6965 rows (3 Null)
+
+*****************************************************************************************************
+*	Single_Table                                                                                *
+*****************************************************************************************************
+-Sf Contact ID: Primary Key
+	27029
+-Sf Opportunity ID	
+	11878 (15151 Null)
+-Sf Course C ID	
+	7572 (19457 Null)
+-Sf Course C Name	
+	7572 (19457 Null)
+-Sf Course C Course Start Date C Date	
+	7563 (19466 Null)
+-Sf Course C Course End Date C Date	
+	7539 (19490 Null)
+-Sf Course C Final Grade C	
+	2736 (24293 Null)
+-Sf Opportunity Application Type C	
+	11875 (15154 Null)
+-Sf Opportunity Program Category	
+	11878 (15151 Null)
+-Sf Opportunity Program C	
+	11875 (15154 Null)
+
+
+

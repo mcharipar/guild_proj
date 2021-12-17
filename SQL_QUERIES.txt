@@ -1,0 +1,70 @@
+CREATE DATABASE guild_education_sql;
+
+CREATE TABLE IF NOT EXISTS course_details (
+    "Sf Course C ID" VARCHAR(18) PRIMARY KEY,
+    "Sf Course C Name" VARCHAR(75),
+    "Sf Course C Course Start Date C Date" VARCHAR(10), 
+    "Sf Course C Course End Date C Date" VARCHAR(10),
+    "Sf Course C Final Grade C" VARCHAR(75);
+
+COPY course_details
+FROM '{}'
+DELIMITER ','
+CSV HEADER;
+
+CREATE TABLE IF NOT EXISTS opportunity_details (
+    "Sf Opportunity ID" VARCHAR(18) PRIMARY KEY,
+    "Sf Opportunity Application Type C" VARCHAR(75),
+    "Sf Opportunity Program Category" VARCHAR(30),
+    "Sf Opportunity Program C" VARCHAR(100)
+);
+
+COPY opportunity_details
+FROM '{}'
+DELIMITER ','
+CSV HEADER;
+
+CREATE TABLE IF NOT EXISTS contact_details (
+    "Sf Contact ID" VARCHAR(18),
+    "Sf Opportunity ID" VARCHAR(18) references opportunity_details("Sf Opportunity ID"),
+    "Sf Course C ID" VARCHAR(18) references course_details("Sf Course C ID")
+);
+
+COPY contact_details
+FROM '{}'
+DELIMITER ','
+CSV HEADER;
+
+CREATE TABLE single_table AS
+SELECT
+    contact_details."Sf Contact ID",
+    contact_details."Sf Course C ID",
+    contact_details."Sf Opportunity ID",
+    course_details."Sf Course C Name",
+    course_details."Sf Course C Course Start Date C Date", 
+    course_details."Sf Course C Course End Date C Date",
+    course_details."Sf Course C Final Grade C",
+    opportunity_details."Sf Opportunity Application Type C",
+    opportunity_details."Sf Opportunity Program Category",
+    opportunity_details."Sf Opportunity Program C"
+FROM contact_details
+FULL OUTER JOIN course_details 
+ON contact_details."Sf Course C ID" = course_details."Sf Course C ID"
+FULL JOIN opportunity_details 
+ON contact_details."Sf Opportunity ID" = opportunity_details."Sf Opportunity ID";
+
+SELECT COUNT(DISTINCT(single_table."Sf Contact ID"))
+FROM single_table
+WHERE single_table."Sf Course C ID" IS NULL;
+
+SELECT single_table."Sf Opportunity Program Category", COUNT(DISTINCT(single_table."Sf Contact ID"))
+FROM single_table
+GROUP BY single_table."Sf Opportunity Program Category";
+
+SELECT
+    single_table."Sf Opportunity Application Type C",
+    COUNT(DISTINCT(single_table."Sf Contact ID"))
+FROM single_table
+WHERE single_table."Sf Course C Final Grade C" 
+IN ('Passed', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+')
+GROUP BY single_table."Sf Opportunity Application Type C";
